@@ -1,5 +1,7 @@
 [
-    { "src": "/assets/images/gallery/photo1.jpg", "alt": "Cozy Room View", "caption": "편안한 방의 풍경" },
-    { "src": "/assets/images/gallery/photo2.jpg", "alt": "Kid with Pumpkin", "caption": "호박을 든 아이" },
-    { "src": "/assets/images/gallery/photo3.jpg", "alt": "Starry Night", "caption": "별이 빛나는 밤" }
+    { "src": "/assets/images/gallery/2024.10.26-1.jpeg", "alt": "서울역 2024.10.26", "caption": "서울역 2024.10.26" },
+    { "src": "/assets/images/gallery/2024.10.26-2.jpeg", "alt": "서울역 2024.10.26", "caption": "서울역 2024.10.26" },
+    { "src": "/assets/images/gallery/2024.10.26-3.jpeg", "alt": "서울역 2024.10.26", "caption": "서울역 2024.10.26" },
+    { "src": "/assets/images/gallery/2024.10.26-4.jpeg", "alt": "서울역 2024.10.26", "caption": "서울역 2024.10.26" },
+    { "src": "/assets/images/gallery/2024.10.26-5.jpeg", "alt": "서울역 2024.10.26", "caption": "서울역 2024.10.26" }
 ]
