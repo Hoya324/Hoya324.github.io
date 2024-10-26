@@ -1,0 +1,5 @@
+[
+    { "src": "/assets/images/gallery/photo1.jpg", "alt": "Cozy Room View", "caption": "편안한 방의 풍경" },
+    { "src": "/assets/images/gallery/photo2.jpg", "alt": "Kid with Pumpkin", "caption": "호박을 든 아이" },
+    { "src": "/assets/images/gallery/photo3.jpg", "alt": "Starry Night", "caption": "별이 빛나는 밤" }
+]
