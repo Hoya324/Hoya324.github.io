@@ -1,17 +1,21 @@
-title: "Hoya's Gallery"
+title: "HoyaGallery"
 email: "hoyana1225@example.com"
 description: "사진 찍는게 취미인 개발자의 전시"
-baseurl: ""  # GitHub Pages에서는 빈 문자열로 설정
-url: "https://hoya324.github.io"  # GitHub Pages URL
-github_username: "Hoya324"
-
-# 플러그인 설정
-plugins:
-  - jekyll-feed  # 피드 기능이 필요할 경우
-
-# 마크다운 엔진 설정
+baseurl: "" # 루트 경로로 설정합니다.
+url: "https://hoya324.github.io" # GitHub Pages URL
+github_username: Hoya324
+theme: "minimal-mistakes-jekyll"
 markdown: kramdown
+permalink: "/:categories/:title/" # 기본 permalink 설정
 
-# 기본 permalink 설정
-permalink: /
+# Jekyll 플러그인 설정
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap # 사이트맵 플러그인 추가 가능
+
+# 파일 경로 설정
+collections_dir: _collections
+data_dir: _data
+layouts_dir: _layouts
+includes_dir: _includes
 
