@@ -5,3 +5,5 @@ baseurl: "https://hoya324.tistory.com/"
 url: "https://hoya324.github.io"
 github_username:  Hoya324
 theme: null
+markdown: kramdown
+permalink: /
