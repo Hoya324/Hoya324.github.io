@@ -11,23 +11,10 @@ layout: default
     <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 <body>
-    <header>
-        <div class="header-container">
-            <h1 class="header-title">{{ site.title }}</h1>
-            <nav>
-                <ul class="header-nav">
-                    <li><a href="/">Home</a></li>
-                    <li><a href="/about">About</a></li>
-                    <li><a href="/gallery">Gallery</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
     <main>
         <div class="gallery-container">
             <aside class="gallery-sidebar">
-                <h2>Hoya</h2>
+                <h2>Photo Log</h2>
             </aside>
             <section class="gallery-grid">
                 {% for photo in site.data.photos %}
