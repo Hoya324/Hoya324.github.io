@@ -1,0 +1,112 @@
+body {
+    font-family: Arial, sans-serif;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.header-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header-nav {
+    list-style: none;
+    display: flex;
+    gap: 15px;
+}
+
+.header-nav a {
+    text-decoration: none;
+    color: #333;
+    font-size: 16px;
+}
+
+.header-nav a:hover {
+    color: #666;
+}
+
+h1 {
+    text-align: center;
+    font-size: 36px;
+    margin: 20px 0;
+}
+
+.gallery-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.gallery-sidebar {
+    width: 20%;
+    padding-right: 20px;
+}
+
+.gallery-sidebar h2 {
+    font-size: 32px;
+    line-height: 1.5;
+    font-weight: bold;
+}
+
+.gallery-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    width: 80%;
+}
+
+.gallery-item {
+    flex: 1 1 calc(33.333% - 10px); /* 3개씩 균등 배치 */
+    box-sizing: border-box;
+    text-align: center;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px; /* 모서리 둥글기 조정 */
+    object-fit: cover;
+    transition: transform 0.2s ease; /* 호버 효과 조정 */
+}
+
+.gallery-item img:hover {
+    transform: scale(1.02); /* 호버 시 커지는 정도 감소 */
+}
+
+.gallery-item p {
+    font-size: 14px;
+    color: #555;
+    margin-top: 5px;
+}
+
+.gallery-footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 20px 0;
+    font-size: 12px;
+    color: #999;
+    background-color: #f9f9f9;
+}
+
+.gallery-footer a {
+    color: #999;
+    text-decoration: none;
+}
+
+.gallery-footer a:hover {
+    color: #333;
+}
+
