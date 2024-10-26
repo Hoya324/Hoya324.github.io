@@ -1,49 +1,31 @@
-# Jekyll 사이트를 GitHub Pages에 배포하는 워크플로우
-name: Deploy Jekyll site to Pages
+name: Jekyll Build and Deploy
 
 on:
-  # main 브랜치로 푸시하거나 Actions 탭에서 수동 실행 시 트리거
   push:
-    branches: ["main"]
-  workflow_dispatch:
-
-# GITHUB_TOKEN 권한 설정
-permissions:
-  contents: read
-  pages: write
-
-# 중복 배포 방지를 위해 동시성 관리 설정
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    branches:
+      - main
 
 jobs:
-  # Build Job
   build:
     runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
 
-      - name: Setup Ruby
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.1'
+          ruby-version: '3.3.5'  # 사용하는 Ruby 버전
           bundler-cache: true
 
       - name: Install dependencies
-        run: bundle install
+        run: |
+          bundle install
 
-      - name: Build with Jekyll
+      - name: Build site with Jekyll
         run: bundle exec jekyll build --destination ./dist
-        env:
-          JEKYLL_ENV: production
 
-  # Deploy Job
-  deploy:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
