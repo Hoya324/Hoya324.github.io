@@ -1,9 +1,17 @@
-title: "HoyaGallery"
+title: "Hoya's Gallery"
 email: "hoyana1225@example.com"
 description: "사진 찍는게 취미인 개발자의 전시"
-baseurl: "https://hoya324.tistory.com/" 
-url: "https://hoya324.github.io"
-github_username:  Hoya324
-theme: null
+baseurl: ""  # GitHub Pages에서는 빈 문자열로 설정
+url: "https://hoya324.github.io"  # GitHub Pages URL
+github_username: "Hoya324"
+
+# 플러그인 설정
+plugins:
+  - jekyll-feed  # 피드 기능이 필요할 경우
+
+# 마크다운 엔진 설정
 markdown: kramdown
+
+# 기본 permalink 설정
 permalink: /
+
