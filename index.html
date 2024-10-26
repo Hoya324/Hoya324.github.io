@@ -2,21 +2,48 @@
 layout: default
 ---
 
-<h1>{{ site.title }}</h1>
-<p>{{ site.description }}</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title | default: site.title }}</title>
+    <link rel="stylesheet" href="/assets/css/styles.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <h1 class="header-title">{{ site.title }}</h1>
+            <nav>
+                <ul class="header-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/gallery">Gallery</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-<div class="gallery-container">
-  {% for photo in site.data.photos %}
-    <div class="photo-item">
-      <img src="{{ photo.url }}" alt="{{ photo.alt }}">
-      <p>{{ photo.caption }}</p>
-    </div>
-  {% endfor %}
-</div>
+    <main>
+        <div class="gallery-container">
+            <aside class="gallery-sidebar">
+                <h2>Hoya</h2>
+            </aside>
+            <section class="gallery-grid">
+                {% for photo in site.data.photos %}
+                    <div class="gallery-item">
+                        <img src="{{ '/assets/images/gallery/' | append: photo.src }}" alt="{{ photo.alt }}">
+                    </div>
+                {% endfor %}
+            </section>
+        </div>
+    </main>
 
-<footer class="gallery-footer">
-  <p>Contact: <a href="mailto:hoyana1225@example.com">hoyana1225@example.com</a></p>
-  <p>GitHub: <a href="https://github.com/Hoya324">https://github.com/Hoya324</a></p>
-  <p>Blog: <a href="https://hoya324.tistory.com/">https://hoya324.tistory.com/</a></p>
-</footer>
+    <footer class="gallery-footer">
+        <p>Contact: <a href="mailto:hoyana1225@gmail.com">hoyana1225@gmail.com</a></p>
+        <p>GitHub: <a href="https://github.com/Hoya324">https://github.com/Hoya324</a></p>
+        <p>Blog: <a href="https://hoya324.tistory.com/">https://hoya324.tistory.com/</a></p>
+    </footer>
+</body>
+</html>
 

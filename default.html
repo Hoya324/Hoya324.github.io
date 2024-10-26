@@ -4,16 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title | default: site.title }}</title>
+    <link rel="stylesheet" href="{{ '/assets/css/styles.css' | relative_url }}">
 </head>
 <body>
     <header>
-        <h1>{{ site.title }}</h1>
+        <div class="header-container">
+            <h1 class="header-title">{{ site.title }}</h1>
+            <nav>
+                <ul class="header-nav">
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/about">About</a></li>
+                    <li><a href="/gallery">Gallery</a></li>
+                </ul>
+            </nav>
+        </div>
     </header>
+
     <main>
         {{ content }}
     </main>
-    <footer>
-        &copy; {{ site.title }} - <a href="{{ site.url }}">{{ site.url }}</a>
+
+    <footer class="gallery-footer">
+        <p>Contact: <a href="mailto:hoyana1225@gmail.com">hoyana1225@gmail.com</a></p>
+        <p>GitHub: <a href="https://github.com/Hoya324">https://github.com/Hoya324</a></p>
+        <p>Blog: <a href="https://hoya324.tistory.com/">https://hoya324.tistory.com/</a></p>
     </footer>
 </body>
 </html>
