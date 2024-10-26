@@ -1,13 +1,10 @@
 source "https://rubygems.org"
 
-# Jekyll and dependencies
 gem "jekyll", "~> 4.3.4"
-gem "webrick", "~> 1.8.2" # For local server support
-gem "jekyll-sass-converter", "~> 3.0.0"
-gem "jekyll-feed", "~> 0.15.1" # RSS feed plugin
-
-# Minimal Mistakes Jekyll theme
 gem "minimal-mistakes-jekyll", "~> 4.26.2"
+gem "jekyll-feed", "~> 0.15.1"
+gem "jekyll-sass-converter", "~> 3.0.0"
+gem "webrick", "~> 1.8"
 
 # Optional dependencies (Add if needed)
 gem "i18n", "~> 1.14.6"
