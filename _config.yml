@@ -4,7 +4,7 @@ description: "사진 찍는게 취미인 개발자의 전시"
 baseurl: "" # 루트 경로로 설정합니다.
 url: "https://hoya324.github.io" # GitHub Pages URL
 github_username: Hoya324
-theme: "minimal-mistakes-jekyll"
+theme: "./path/to/local/minimal-mistakes-jekyll"
 markdown: kramdown
 permalink: "/:categories/:title/" # 기본 permalink 설정
 
