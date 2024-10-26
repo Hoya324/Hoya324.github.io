@@ -1,4 +1,4 @@
-name: Jekyll Build
+name: Jekyll Build and Deploy
 
 on:
   push:
@@ -16,7 +16,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.3'  # Attempt Ruby 3.3; may need to fall back if not fully supported
+          ruby-version: '3.3.5'  # 사용하는 Ruby 버전
           bundler-cache: true
 
       - name: Install dependencies
@@ -25,3 +25,21 @@ jobs:
 
       - name: Build site with Jekyll
         run: bundle exec jekyll build
+
+      - name: Deploy to GitHub Pages
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # gh-pages 브랜치로 전환
+          git config --global user.name "${{ github.actor }}"
+          git config --global user.email "${{ github.actor }}@users.noreply.github.com"
+          git checkout --orphan gh-pages
+          git reset --hard
+          # 빌드된 파일 복사 및 커밋
+          cp -r _site/* .
+          rm -rf _site/
+          echo "hoya324.github.io" > CNAME  # 사용자 지정 도메인 설정 (필요시)
+          git add .
+          git commit -m "Deploy to GitHub Pages"
+          git push -f origin gh-pages
