@@ -14,13 +14,13 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Set up Ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0'
+          ruby-version: '3.3'  # Attempt Ruby 3.3; may need to fall back if not fully supported
+          bundler-cache: true
 
       - name: Install dependencies
         run: |
-          gem install bundler
           bundle install
 
       - name: Build site with Jekyll
