@@ -9,6 +9,30 @@ layout: default
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title | default: site.title }}</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const grid = document.querySelector(".gallery-grid");
+
+            function arrangeImages() {
+                const items = Array.from(document.querySelectorAll(".gallery-item img"));
+
+                items.forEach(img => {
+                    const item = img.closest('.gallery-item');
+                    const aspectRatio = img.naturalWidth / img.naturalHeight;
+
+                    // 가로 비율이 1.5 이상이면 두 칸 차지
+                    if ((img.naturalWidth > img.naturalHeight) || aspectRatio > 1.5) {
+                        item.classList.add("wide");
+                    } else {
+                        item.classList.remove("wide");
+                    }
+                });
+            }
+
+            arrangeImages();
+            window.addEventListener('resize', arrangeImages); // 창 크기 변경 시 레이아웃 다시 적용
+        });
+    </script>
 </head>
 <body>
     <main>
@@ -33,4 +57,3 @@ layout: default
     </footer>
 </body>
 </html>
-
