@@ -260,3 +260,17 @@ h1 {
         position: absolute;
     }
 }
+
+/* Desktop view: Keep the text on one line */
+@media (min-width: 769px) {
+    .typewriter-text {
+        display: inline;
+    }
+}
+
+/* Mobile view: Force line break */
+@media (max-width: 768px) {
+    .typewriter-text {
+        display: block; /* Forces line break after each block-level element */
+    }
+}
