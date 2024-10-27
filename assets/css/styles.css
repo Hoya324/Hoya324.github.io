@@ -1,3 +1,4 @@
+/* Global Styles */
 body {
     font-family: Arial, sans-serif;
     color: #333;
@@ -7,16 +8,13 @@ body {
     box-sizing: border-box;
 }
 
-.masthead {
+/* Hide unwanted elements */
+.masthead, .page__footer {
     display: none;
     visibility: hidden;
 }
 
-.page__footer {
-    display: none;
-    visibility: hidden;
-}
-
+/* Header */
 .header-container {
     display: flex;
     justify-content: space-between;
@@ -46,12 +44,14 @@ body {
     color: #666;
 }
 
+/* Main Title */
 h1 {
     text-align: center;
     font-size: 36px;
     margin: 20px 0;
 }
 
+/* Gallery Layout */
 .gallery-container {
     display: flex;
     max-width: 1200px;
@@ -85,21 +85,22 @@ h1 {
 }
 
 .gallery-item.wide {
-    flex: 2 1 calc(66.666% - 10px); /* 가로로 긴 사진은 2칸 차지 */
+    flex: 2 1 calc(66.666% - 10px); /* Wide images occupy 2 columns */
 }
 
 .gallery-item img {
     width: 100%;
     height: auto;
-    border-radius: 2px; /* 모서리 둥글기 조정 */
+    border-radius: 2px;
     object-fit: cover;
-    transition: transform 0.2s ease; /* 호버 효과 조정 */
+    transition: transform 0.2s ease;
 }
 
 .gallery-item img:hover {
-    transform: scale(1.01); /* 호버 시 커지는 정도 감소 */
+    transform: scale(1.01);
 }
 
+/* Footer */
 .gallery-footer {
     text-align: left;
     margin-top: 30px;
@@ -111,7 +112,6 @@ h1 {
 
 .gallery-footer p {
     color: rgba(126, 125, 125, 0.762);
-    text-decoration: none;
     margin: 15px 20px !important;
 }
 
@@ -119,18 +119,19 @@ h1 {
     color: #333;
 }
 
+/* Lightbox */
 #lightbox {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8) !important; /* Ensuring background color is applied */
+    background: rgba(0, 0, 0, 0.8);
     display: flex;
     align-items: center;
     justify-content: center;
     display: none;
-    z-index: 9999 !important; /* Higher z-index to stay above header */
+    z-index: 9999;
 }
 
 #lightbox.active {
@@ -159,6 +160,13 @@ h1 {
     color: rgb(47, 45, 45);
 }
 
+/* Hide anchor links inside <p> tags */
+.contact-info p a {
+    visibility: hidden;
+    position: absolute;
+}
+
+/* Contact links */
 .contact-info div a {
     color: rgb(255, 255, 255);
     text-decoration: none;
@@ -168,14 +176,54 @@ h1 {
     color: #333;
 }
 
+/* Typewriter effect base styling */
+.typewriter-text {
+    overflow: hidden;
+    display: inline-block;
+    position: relative;
+    white-space: nowrap;
+}
 
-/* Adjustments for Mobile */
+.typewriter-text .cursor {
+    display: inline-block;
+    width: 3px;
+    background-color: black; /* Adjust color to match your design */
+    animation: blink 0.5s step-end infinite;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+/* Blinking cursor animation */
+@keyframes blink {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 1096px) {
+    .contact-info div a {
+        font-size: 0;
+    }
+    .contact-info div a::before {
+        content: ''; /* Optional placeholder content */
+        font-size: 16px;
+    }
+}
+
 @media (max-width: 768px) {
+    /* Gallery Container */
     .gallery-container {
         flex-direction: column;
         align-items: center;
     }
 
+    /* Sidebar */
     .gallery-sidebar {
         width: 100%;
         text-align: center;
@@ -183,16 +231,21 @@ h1 {
         padding-bottom: 20px;
     }
 
+    /* Contact Info */
     .contact-info {
-        background-color: rgba(113, 109, 103, 0.525);
+        max-width: 90%;
+        text-align: center;
+        padding: 10px;
     }
 
+    /* Gallery Grid */
     .gallery-grid {
         width: 100%;
         gap: 5px;
         justify-content: center;
     }
 
+    /* Gallery Items */
     .gallery-item {
         flex: 1 1 calc(50% - 5px);
     }
@@ -201,8 +254,9 @@ h1 {
         flex: 1 1 calc(100% - 5px);
     }
 
-    .contact-info {
-        text-align: center;
-        padding: 10px 0;
+    /* Hide contact links completely on small screens */
+    .contact-info div a {
+        visibility: hidden;
+        position: absolute;
     }
 }
