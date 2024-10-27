@@ -148,29 +148,36 @@ h1 {
     margin-top: 20px;
     font-size: 14px;
     color: #555;
-    background-color: rgba(113, 109, 103, 0.525);
+    background-color: rgba(171, 169, 165, 0.525);
     padding: 10%;
     border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start; /* Align text to the left */
 }
 
+.contact-info-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+/* Link styling */
 .contact-info p {
     margin: 1px 0;
     font-weight: 700;
-    text-decoration: underline;
-    color: rgb(47, 45, 45);
+    color: #555;
 }
 
-/* Hide anchor links inside <p> tags */
 .contact-info p a {
-    color: rgb(6, 5, 5);
+    color: rgb(58, 56, 56);
     text-decoration: none;
 }
 
-/* Contact links */
 .contact-info div > a {
     color: rgb(255, 255, 255);
     text-decoration: none;
-    
 }
 
 .contact-info a:hover {
@@ -188,7 +195,7 @@ h1 {
 .typewriter-text .cursor {
     display: inline-block;
     width: 3px;
-    background-color: black; /* Adjust color to match your design */
+    background-color: black;
     animation: blink 0.5s step-end infinite;
     position: absolute;
     right: 0;
@@ -205,15 +212,11 @@ h1 {
     }
 }
 
-
 /* Responsive Adjustments */
-@media (max-width: 1096px) {
-    .contact-info div a {
-        font-size: 0;
-    }
-    .contact-info div a::before {
-        content: ''; /* Optional placeholder content */
-        font-size: 16px;
+@media (max-width: 1180px) {
+    /* Hide actual links (email, GitHub, blog) on mid-sized screens */
+    .contact-info-inner div {
+        display: none;
     }
 }
 
@@ -232,11 +235,18 @@ h1 {
         padding-bottom: 20px;
     }
 
-    /* Contact Info */
+    /* Center-align contact info */
     .contact-info {
         max-width: 90%;
         text-align: center;
         padding: 10px;
+        gap: 15px;
+        align-items: center;
+        margin: 0 auto; /* Ensure it stays centered */
+    }
+
+    /* Center-align each inner section */
+    .contact-info-inner {
         align-items: center;
     }
 
@@ -255,12 +265,6 @@ h1 {
     .gallery-item.wide {
         flex: 1 1 calc(100% - 5px);
     }
-
-    /* Hide contact links completely on small screens */
-    .contact-info div a {
-        visibility: hidden;
-        position: absolute;
-    }
 }
 
 /* Desktop view: Keep the text on one line */
@@ -273,6 +277,6 @@ h1 {
 /* Mobile view: Force line break */
 @media (max-width: 768px) {
     .typewriter-text {
-        display: block; /* Forces line break after each block-level element */
+        display: block;
     }
 }
