@@ -1,11 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
+    // Check if the .gallery-grid element exists before proceeding
     const grid = document.querySelector(".gallery-grid");
 
-    // Only proceed if .gallery-grid exists
     if (grid) {
         function arrangeImages() {
-            const items = Array.from(document.querySelectorAll(".gallery-item img"));
-            
+            const items = document.querySelectorAll(".gallery-item img");
+
             items.forEach(img => {
                 const item = img.closest('.gallery-item');
                 const aspectRatio = img.naturalWidth / img.naturalHeight;
@@ -35,9 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 lightbox.classList.add('active');
                 const img = document.createElement('img');
                 img.src = image.src;
-                while (lightbox.firstChild) {
-                    lightbox.removeChild(lightbox.firstChild);
-                }
+                lightbox.innerHTML = ''; // Clear previous content
                 lightbox.appendChild(img);
             });
         });
@@ -68,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (index < text.length) {
                 if (text.substring(index, index + 4) === "<br>") {
                     element.innerHTML += "<br>";
-                    index += 4; // Move index past the <br> tag
+                    index += 4;
                 } else {
                     element.innerHTML += text.charAt(index);
                     index++;
@@ -83,14 +81,14 @@ document.addEventListener("DOMContentLoaded", function () {
         type();
     }
 
-    // Only apply typewriter effect if elements exist
+    // Apply typewriter effect only if elements exist
     const typewriterElements = document.querySelectorAll(".typewriter-text");
 
     if (typewriterElements.length > 0) {
         typewriterElements.forEach((element, index) => {
-            const text = element.innerHTML; // Get original HTML content including <br> tags
+            const text = element.innerHTML;
             element.innerHTML = ""; // Clear initial content for animation
-            setTimeout(() => typeWriter(element, text, 50), index * 1000); // Faster delay of 50ms
+            setTimeout(() => typeWriter(element, text, 50), index * 1000);
         });
     } else {
         console.warn("Typewriter elements not found in the DOM.");
