@@ -7,6 +7,16 @@ body {
     box-sizing: border-box;
 }
 
+.masthead {
+    display: none;
+    visibility: hidden;
+}
+
+.page__footer {
+    display: none;
+    visibility: hidden;
+}
+
 .header-container {
     display: flex;
     justify-content: space-between;
@@ -51,7 +61,7 @@ h1 {
 
 .gallery-sidebar {
     width: 20%;
-    padding-right: 20px;
+    padding-right: 35px;
 }
 
 .gallery-sidebar h2 {
@@ -91,7 +101,7 @@ h1 {
 }
 
 .gallery-footer {
-    text-align: center;
+    text-align: left;
     margin-top: 30px;
     padding: 20px 0;
     font-size: 12px;
@@ -99,26 +109,82 @@ h1 {
     background-color: #f9f9f9;
 }
 
-.gallery-footer a {
-    color: rgb(89, 87, 87);
+.gallery-footer p {
+    color: rgba(126, 125, 125, 0.762);
     text-decoration: none;
+    margin: 15px 20px !important;
 }
 
 .gallery-footer a:hover {
     color: #333;
 }
 
-/* 모바일 버전 */
+#lightbox {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8) !important; /* Ensuring background color is applied */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    display: none;
+    z-index: 9999 !important; /* Higher z-index to stay above header */
+}
+
+#lightbox.active {
+    display: flex;
+}
+
+#lightbox img {
+    max-width: 90%;
+    max-height: 80%;
+}
+
+/* Contact Information Styles */
+.contact-info {
+    margin-top: 20px;
+    font-size: 14px;
+    color: #555;
+    background-color: rgba(113, 109, 103, 0.525);
+    padding: 10%;
+    border-radius: 3px;
+}
+
+.contact-info p {
+    margin: 1px 0;
+    font-weight: 700;
+    text-decoration: underline;
+    color: rgb(47, 45, 45);
+}
+
+.contact-info div a {
+    color: rgb(255, 255, 255);
+    text-decoration: none;
+}
+
+.contact-info a:hover {
+    color: #333;
+}
+
+
+/* Adjustments for Mobile */
 @media (max-width: 768px) {
     .gallery-container {
         flex-direction: column;
         align-items: center;
     }
-    
+
     .gallery-sidebar {
         width: 100%;
         text-align: center;
         padding-right: 0;
+        padding-bottom: 20px;
+    }
+
+    .contact-info {
+        background-color: rgba(113, 109, 103, 0.525);
     }
 
     .gallery-grid {
@@ -128,10 +194,15 @@ h1 {
     }
 
     .gallery-item {
-        flex: 1 1 calc(50% - 5px); /* 한 행에 두 개씩 배치 */
+        flex: 1 1 calc(50% - 5px);
     }
 
     .gallery-item.wide {
-        flex: 1 1 calc(100% - 5px); /* 가로로 긴 사진은 한 줄 전체 차지 */
+        flex: 1 1 calc(100% - 5px);
+    }
+
+    .contact-info {
+        text-align: center;
+        padding: 10px 0;
     }
 }

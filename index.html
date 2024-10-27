@@ -21,36 +21,12 @@ layout: default
         'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
         })(window,document,'script','dataLayer','GTM-ML6L6TNS');
     </script>
-    
     <!-- End Google Tag Manager -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hoya's photos</title>
     <link rel="stylesheet" href="/assets/css/styles.css">
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const grid = document.querySelector(".gallery-grid");
-
-            function arrangeImages() {
-                const items = Array.from(document.querySelectorAll(".gallery-item img"));
-
-                items.forEach(img => {
-                    const item = img.closest('.gallery-item');
-                    const aspectRatio = img.naturalWidth / img.naturalHeight;
-
-                    // 가로 비율이 1.5 이상이면 두 칸 차지
-                    if ((img.naturalWidth > img.naturalHeight) || aspectRatio > 1.5) {
-                        item.classList.add("wide");
-                    } else {
-                        item.classList.remove("wide");
-                    }
-                });
-            }
-
-            arrangeImages();
-            window.addEventListener('resize', arrangeImages); // 창 크기 변경 시 레이아웃 다시 적용
-        });
-    </script>
+    <script src="/assets/js/gallery.js" defer></script>
 </head>
 <body>
     <!-- Google Tag Manager (noscript) -->
@@ -61,7 +37,15 @@ layout: default
     <main>
         <div class="gallery-container">
             <aside class="gallery-sidebar">
-                <h2>Photo Log</h2>
+                <h2>사진 기록</h2>
+                <div class="contact-info">
+                    <p>Contact</p>
+                    <div><a href="mailto:hoyana1225@gmail.com">hoyana1225@gmail.com</a></div>
+                    <p>GitHub</p>
+                    <div><a href="https://github.com/Hoya324">https://github.com/Hoya324</a></div>
+                    <p>Blog</p>
+                    <div><a href="https://hoya324.tistory.com">https://hoya324.tistory.com</a></div>
+                </div>
             </aside>
             <section class="gallery-grid">
                 {% for photo in site.data.photos %}
@@ -74,9 +58,7 @@ layout: default
     </main>
 
     <footer class="gallery-footer">
-        <p>Contact: <a href="mailto:hoyana1225@gmail.com">hoyana1225@gmail.com</a></p>
-        <p>GitHub: <a href="https://github.com/Hoya324">https://github.com/Hoya324</a></p>
-        <p>Blog: <a href="https://hoya324.tistory.com/">https://hoya324.tistory.com/</a></p>
+        <p>© 나경호(Hoya324)</p>
     </footer>
 </body>
 </html>
