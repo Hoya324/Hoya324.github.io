@@ -162,14 +162,15 @@ h1 {
 
 /* Hide anchor links inside <p> tags */
 .contact-info p a {
-    visibility: hidden;
-    position: absolute;
+    color: rgb(6, 5, 5);
+    text-decoration: none;
 }
 
 /* Contact links */
-.contact-info div a {
+.contact-info div > a {
     color: rgb(255, 255, 255);
     text-decoration: none;
+    
 }
 
 .contact-info a:hover {
@@ -236,6 +237,7 @@ h1 {
         max-width: 90%;
         text-align: center;
         padding: 10px;
+        align-items: center;
     }
 
     /* Gallery Grid */
