@@ -1,6 +1,6 @@
 ---
 
-# 개인의 사진 갤러리
+# 개인 사진 갤러리
 
 ![Hoya324's Gallery](https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Fblog.kakaocdn.net%2Fdn%2FFQY5T%2FbtsKluoABrz%2F3fuIrzirwkcEmUKpZKm0f0%2Fimg.png)
 
