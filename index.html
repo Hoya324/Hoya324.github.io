@@ -28,7 +28,6 @@ layout: default
     <link rel="icon" href="/assets/static/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="/assets/static/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="/assets/static/favicon.ico">
-
     <link rel="stylesheet" href="/assets/css/styles.css">
     <script src="/assets/js/gallery.js" defer></script>
 </head>
@@ -41,7 +40,7 @@ layout: default
     <main>
         <div class="gallery-container">
             <aside class="gallery-sidebar">
-                <h2 class="typewriter-text">반가워요!</h2>
+                <h2 class="typewriter-text"> 반가워요!</h2>
                 <h3 class="typewriter-text">나경호의<br>사진 저장소입니다.</h3>
                 <div class="contact-info">
                     <div class="contact-info-inner">
@@ -71,5 +70,11 @@ layout: default
     <footer class="gallery-footer">
         <p>© 나경호(Hoya324)</p>
     </footer>
+
+    <div id="lightbox" onclick="closeLightbox()">
+        <img id="lightbox-img" src="" alt="">
+    </div>
+
+    <script src="/assets/js/gallery.js"></script>
 </body>
 </html>

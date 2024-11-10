@@ -1,59 +1,70 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // Check if the .gallery-grid element exists before proceeding
-    const grid = document.querySelector(".gallery-grid");
+        const grid = document.getElementById("galleryGrid");
+    let currentPage = 1;
+    const imagesPerPage = 10; // 한 번에 로드할 이미지 수
 
-    if (grid) {
-        function arrangeImages() {
-            const items = document.querySelectorAll(".gallery-item img");
+    // 이미지 로드 함수
+    async function loadImages(page) {
+        const response = await fetch(`/assets/data/photos.json`);
+        const photos = await response.json();
+        const startIndex = (page - 1) * imagesPerPage;
+        const endIndex = page * imagesPerPage;
+        const images = photos.slice(startIndex, endIndex);
 
-            items.forEach(img => {
-                const item = img.closest('.gallery-item');
-                const aspectRatio = img.naturalWidth / img.naturalHeight;
-
-                if ((img.naturalWidth > img.naturalHeight) || aspectRatio > 1.5) {
-                    item.classList.add("wide");
-                } else {
-                    item.classList.remove("wide");
-                }
-            });
-        }
-
-        arrangeImages();
-        window.addEventListener('resize', arrangeImages);
-    } else {
-        console.warn("Gallery grid not found in the DOM.");
+        images.forEach(photo => {
+            const item = document.createElement("div");
+            item.className = "gallery-item";
+            const img = document.createElement("img");
+            img.src = `/assets/images/gallery/${photo.src}`;
+            img.alt = photo.alt;
+            img.loading = "lazy";
+            item.appendChild(img);
+            grid.appendChild(item);
+        });
     }
 
-    // Lightbox functionality with error handling
-    try {
-        const lightbox = document.createElement('div');
+    // 초기 이미지 로드
+    loadImages(currentPage);
+
+    // 스크롤 이벤트로 페이지 네이션 로드
+    window.addEventListener("scroll", () => {
+        if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+            currentPage++;
+            loadImages(currentPage);
+        }
+    });
+
+    // Lightbox 생성
+    let lightbox = document.getElementById('lightbox');
+    if (!lightbox) {
+        lightbox = document.createElement('div');
         lightbox.id = 'lightbox';
         document.body.appendChild(lightbox);
-
-        document.querySelectorAll('.gallery-item img').forEach(image => {
-            image.addEventListener('click', () => {
-                lightbox.classList.add('active');
-                const img = document.createElement('img');
-                img.src = image.src;
-                lightbox.innerHTML = ''; // Clear previous content
-                lightbox.appendChild(img);
-            });
-        });
-
-        // Close lightbox on click or ESC key
-        function closeLightbox() {
-            lightbox.classList.remove('active');
-        }
-
-        lightbox.addEventListener('click', closeLightbox);
-        document.addEventListener('keydown', (event) => {
-            if (event.key === "Escape") {
-                closeLightbox();
-            }
-        });
-    } catch (error) {
-        console.error("Error setting up lightbox:", error);
     }
+
+    // Lightbox 기능 구현
+    document.addEventListener('click', (event) => {
+        const target = event.target;
+        if (target.tagName === 'IMG' && target.closest('.gallery-item')) {
+            lightbox.classList.add('active');
+            const img = document.createElement('img');
+            img.src = target.src;
+            lightbox.innerHTML = ''; // 이전 콘텐츠 제거
+            lightbox.appendChild(img);
+        }
+    });
+
+    // Lightbox 닫기 기능
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+    }
+
+    lightbox.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', (event) => {
+        if (event.key === "Escape") {
+            closeLightbox();
+        }
+    });
 
     // Typewriter effect with support for <br> tags and blinking cursor
     function typeWriter(element, text, delay = 50) {
