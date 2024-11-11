@@ -1,20 +1,30 @@
+// Throttle 함수 정의
+function throttle(func, delay) {
+    let lastCall = 0;
+    return function (...args) {
+        const now = new Date().getTime();
+        if (now - lastCall >= delay) {
+            lastCall = now;
+            return func(...args);
+        }
+    };
+}
+
 document.addEventListener("DOMContentLoaded", function () {
     const grid = document.querySelector(".gallery-grid");
     let currentPage = 1;
-    const imagesPerPage = 10; // 한 번에 로드할 이미지 수
-    let photos = []; // 캐시된 데이터 저장용 배열
+    const imagesPerPage = 10;
+    let photos = [];
 
-    // 초기 데이터 로드 함수
     async function fetchPhotos() {
         try {
             const response = await fetch(`./_data/photos.json`);
-            photos = await response.json(); // 전체 데이터 캐시
+            photos = await response.json();
         } catch (error) {
             console.error("Failed to load photos.json:", error);
         }
     }
 
-    // 페이지별 이미지 로드 함수
     function loadImages(page) {
         const startIndex = (page - 1) * imagesPerPage;
         const endIndex = page * imagesPerPage;
@@ -30,7 +40,6 @@ document.addEventListener("DOMContentLoaded", function () {
             item.appendChild(img);
             grid.appendChild(item);
 
-            // Lightbox 기능 추가
             img.addEventListener('click', () => {
                 lightbox.classList.add('active');
                 const lightboxImg = document.createElement('img');
@@ -40,18 +49,17 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
 
-        arrangeImages(); // 이미지 레이아웃 적용
+        arrangeImages();
     }
 
-    // 스크롤 이벤트에 따라 다음 페이지 로드
-    window.addEventListener("scroll", () => {
+    // Throttle을 적용한 스크롤 이벤트
+    window.addEventListener("scroll", throttle(() => {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
             currentPage++;
             loadImages(currentPage);
         }
-    });
+    }, 200)); // 200ms 간격으로 스크롤 이벤트 발생 제한
 
-    // 이미지 비율에 따라 'wide' 클래스 적용
     function arrangeImages() {
         const items = document.querySelectorAll(".gallery-item img");
 
@@ -76,7 +84,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Lightbox 생성 및 기능 추가
     const lightbox = document.createElement('div');
     lightbox.id = 'lightbox';
     document.body.appendChild(lightbox);
@@ -92,6 +99,5 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // 초기 데이터 가져오기 및 첫 페이지 로드
     fetchPhotos().then(() => loadImages(currentPage));
 });
