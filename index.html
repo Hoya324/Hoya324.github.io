@@ -57,13 +57,13 @@ layout: default
                     </div>
                 </div>
             </aside>
-            <section class="gallery-grid">
+            <section id="galleryGrid" class="gallery-grid">
                 {% for photo in site.data.photos %}
-                    <div class="gallery-item">
+                    <div class="gallery-item" onclick="openLightbox('{{ '/assets/images/gallery/' | append: photo.src }}')">
                         <img src="{{ '/assets/images/gallery/' | append: photo.src }}" alt="{{ photo.alt }}">
                     </div>
                 {% endfor %}
-            </section>
+            </section>            
         </div>
     </main>
 
@@ -74,7 +74,5 @@ layout: default
     <div id="lightbox" onclick="closeLightbox()">
         <img id="lightbox-img" src="" alt="">
     </div>
-
-    <script src="/assets/js/gallery.js"></script>
 </body>
 </html>

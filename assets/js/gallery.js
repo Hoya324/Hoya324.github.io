@@ -1,12 +1,21 @@
 document.addEventListener("DOMContentLoaded", function () {
-        const grid = document.getElementById("galleryGrid");
+    const grid = document.querySelector(".gallery-grid");
     let currentPage = 1;
     const imagesPerPage = 10; // 한 번에 로드할 이미지 수
+    let photos = []; // 캐시된 데이터 저장용 배열
 
-    // 이미지 로드 함수
-    async function loadImages(page) {
-        const response = await fetch(`/assets/data/photos.json`);
-        const photos = await response.json();
+    // 초기 데이터 로드 함수
+    async function fetchPhotos() {
+        try {
+            const response = await fetch(`./_data/photos.json`);
+            photos = await response.json(); // 전체 데이터 캐시
+        } catch (error) {
+            console.error("Failed to load photos.json:", error);
+        }
+    }
+
+    // 페이지별 이미지 로드 함수
+    function loadImages(page) {
         const startIndex = (page - 1) * imagesPerPage;
         const endIndex = page * imagesPerPage;
         const images = photos.slice(startIndex, endIndex);
@@ -20,13 +29,21 @@ document.addEventListener("DOMContentLoaded", function () {
             img.loading = "lazy";
             item.appendChild(img);
             grid.appendChild(item);
+
+            // Lightbox 기능 추가
+            img.addEventListener('click', () => {
+                lightbox.classList.add('active');
+                const lightboxImg = document.createElement('img');
+                lightboxImg.src = img.src;
+                lightbox.innerHTML = '';
+                lightbox.appendChild(lightboxImg);
+            });
         });
+
+        arrangeImages(); // 이미지 레이아웃 적용
     }
 
-    // 초기 이미지 로드
-    loadImages(currentPage);
-
-    // 스크롤 이벤트로 페이지 네이션 로드
+    // 스크롤 이벤트에 따라 다음 페이지 로드
     window.addEventListener("scroll", () => {
         if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
             currentPage++;
@@ -34,27 +51,36 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Lightbox 생성
-    let lightbox = document.getElementById('lightbox');
-    if (!lightbox) {
-        lightbox = document.createElement('div');
-        lightbox.id = 'lightbox';
-        document.body.appendChild(lightbox);
+    // 이미지 비율에 따라 'wide' 클래스 적용
+    function arrangeImages() {
+        const items = document.querySelectorAll(".gallery-item img");
+
+        Promise.all(Array.from(items).map(img => new Promise(resolve => {
+            if (img.complete) {
+                resolve();
+            } else {
+                img.onload = resolve;
+                img.onerror = resolve;
+            }
+        }))).then(() => {
+            items.forEach(img => {
+                const item = img.closest('.gallery-item');
+                const aspectRatio = img.naturalWidth / img.naturalHeight;
+
+                if ((img.naturalWidth > img.naturalHeight) || aspectRatio > 1.5) {
+                    item.classList.add("wide");
+                } else {
+                    item.classList.remove("wide");
+                }
+            });
+        });
     }
 
-    // Lightbox 기능 구현
-    document.addEventListener('click', (event) => {
-        const target = event.target;
-        if (target.tagName === 'IMG' && target.closest('.gallery-item')) {
-            lightbox.classList.add('active');
-            const img = document.createElement('img');
-            img.src = target.src;
-            lightbox.innerHTML = ''; // 이전 콘텐츠 제거
-            lightbox.appendChild(img);
-        }
-    });
+    // Lightbox 생성 및 기능 추가
+    const lightbox = document.createElement('div');
+    lightbox.id = 'lightbox';
+    document.body.appendChild(lightbox);
 
-    // Lightbox 닫기 기능
     function closeLightbox() {
         lightbox.classList.remove('active');
     }
@@ -66,42 +92,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Typewriter effect with support for <br> tags and blinking cursor
-    function typeWriter(element, text, delay = 50) {
-        let index = 0;
-        const cursor = document.createElement("span");
-        cursor.classList.add("cursor");
-        element.appendChild(cursor);
-
-        function type() {
-            if (index < text.length) {
-                if (text.substring(index, index + 4) === "<br>") {
-                    element.innerHTML += "<br>";
-                    index += 4;
-                } else {
-                    element.innerHTML += text.charAt(index);
-                    index++;
-                }
-                setTimeout(type, delay);
-            } else {
-                cursor.style.display = "inline-block"; // Show blinking cursor after typing
-            }
-        }
-
-        element.innerHTML = ""; // Clear any existing content
-        type();
-    }
-
-    // Apply typewriter effect only if elements exist
-    const typewriterElements = document.querySelectorAll(".typewriter-text");
-
-    if (typewriterElements.length > 0) {
-        typewriterElements.forEach((element, index) => {
-            const text = element.innerHTML;
-            element.innerHTML = ""; // Clear initial content for animation
-            setTimeout(() => typeWriter(element, text, 50), index * 1000);
-        });
-    } else {
-        console.warn("Typewriter elements not found in the DOM.");
-    }
+    // 초기 데이터 가져오기 및 첫 페이지 로드
+    fetchPhotos().then(() => loadImages(currentPage));
 });
