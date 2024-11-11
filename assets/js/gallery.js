@@ -1,20 +1,20 @@
-// Throttle 함수 정의
-function throttle(func, delay) {
-    let lastCall = 0;
-    return function (...args) {
-        const now = new Date().getTime();
-        if (now - lastCall >= delay) {
-            lastCall = now;
-            return func(...args);
-        }
-    };
-}
-
 document.addEventListener("DOMContentLoaded", function () {
     const grid = document.querySelector(".gallery-grid");
     let currentPage = 1;
     const imagesPerPage = 10;
     let photos = [];
+
+    // Throttle 함수 정의
+    function throttle(func, delay) {
+        let lastCall = 0;
+        return function (...args) {
+            const now = new Date().getTime();
+            if (now - lastCall >= delay) {
+                lastCall = now;
+                return func(...args);
+            }
+        };
+    }
 
     async function fetchPhotos() {
         try {
@@ -37,20 +37,38 @@ document.addEventListener("DOMContentLoaded", function () {
             img.src = `/assets/images/gallery/${photo.src}`;
             img.alt = photo.alt;
             img.loading = "lazy";
+            img.onclick = () => openLightbox(img.src); // openLightbox 호출 추가
             item.appendChild(img);
             grid.appendChild(item);
-
-            img.addEventListener('click', () => {
-                lightbox.classList.add('active');
-                const lightboxImg = document.createElement('img');
-                lightboxImg.src = img.src;
-                lightbox.innerHTML = '';
-                lightbox.appendChild(lightboxImg);
-            });
         });
 
         arrangeImages();
     }
+
+    // Lightbox 열기 함수 (window에 할당하여 전역 접근 가능하게 설정)
+    window.openLightbox = function (src) {
+        lightbox.classList.add('active');
+        const lightboxImg = document.createElement('img');
+        lightboxImg.src = src;
+        lightbox.innerHTML = '';
+        lightbox.appendChild(lightboxImg);
+    }
+
+    // Lightbox 닫기 함수
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+    }
+
+    const lightbox = document.createElement('div');
+    lightbox.id = 'lightbox';
+    document.body.appendChild(lightbox);
+
+    lightbox.addEventListener('click', closeLightbox);
+    document.addEventListener('keydown', (event) => {
+        if (event.key === "Escape") {
+            closeLightbox();
+        }
+    });
 
     // Throttle을 적용한 스크롤 이벤트
     window.addEventListener("scroll", throttle(() => {
@@ -58,7 +76,7 @@ document.addEventListener("DOMContentLoaded", function () {
             currentPage++;
             loadImages(currentPage);
         }
-    }, 200)); // 200ms 간격으로 스크롤 이벤트 발생 제한
+    }, 200));
 
     function arrangeImages() {
         const items = document.querySelectorAll(".gallery-item img");
@@ -83,21 +101,6 @@ document.addEventListener("DOMContentLoaded", function () {
             });
         });
     }
-
-    const lightbox = document.createElement('div');
-    lightbox.id = 'lightbox';
-    document.body.appendChild(lightbox);
-
-    function closeLightbox() {
-        lightbox.classList.remove('active');
-    }
-
-    lightbox.addEventListener('click', closeLightbox);
-    document.addEventListener('keydown', (event) => {
-        if (event.key === "Escape") {
-            closeLightbox();
-        }
-    });
 
     fetchPhotos().then(() => loadImages(currentPage));
 });
