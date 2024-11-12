@@ -103,4 +103,43 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     fetchPhotos().then(() => loadImages(currentPage));
+
+    // Typewriter 효과 함수
+    function typeWriter(element, text, delay = 50) {
+        let index = 0;
+        const cursor = document.createElement("span");
+        cursor.classList.add("cursor");
+        element.appendChild(cursor);
+
+        function type() {
+            if (index < text.length) {
+                if (text.substring(index, index + 4) === "<br>") {
+                    element.innerHTML += "<br>";
+                    index += 4;
+                } else {
+                    element.innerHTML += text.charAt(index);
+                    index++;
+                }
+                setTimeout(type, delay);
+            } else {
+                cursor.style.display = "inline-block"; // Show blinking cursor after typing
+            }
+        }
+
+        element.innerHTML = ""; // Clear any existing content
+        type();
+    }
+
+    // Typewriter 효과 적용
+    const typewriterElements = document.querySelectorAll(".typewriter-text");
+
+    if (typewriterElements.length > 0) {
+        typewriterElements.forEach((element, index) => {
+            const text = element.innerHTML;
+            element.innerHTML = ""; // Clear initial content for animation
+            setTimeout(() => typeWriter(element, text, 50), index * 1000);
+        });
+    } else {
+        console.warn("Typewriter elements not found in the DOM.");
+    }
 });
