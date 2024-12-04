@@ -25,6 +25,28 @@ layout: default
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hoya's photos</title>
+    <style>
+        body {
+            background-color: #323455;
+            }
+            .snowflake {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: white;
+            position: absolute; /*눈송이 감추기*/
+            top: -8px;
+        }
+    
+        @keyframes fall {
+            from {
+            }
+            to {
+                transform: translateY(100vh); /*화면 끝까지 이동*/
+                opacity: 0;
+            }
+        }
+    </style>
     <link rel="icon" href="/assets/static/favicon.ico" type="image/x-icon">
     <link rel="shortcut icon" href="/assets/static/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="/assets/static/favicon.ico">
@@ -37,6 +59,35 @@ layout: default
         height="0" width="0" style="display:none;visibility:hidden"></iframe>
     </noscript>
     <!-- End Google Tag Manager (noscript) -->
+    <script>
+        const body = document.querySelector("body");
+
+        const MIN_DURATION = 10;
+
+        function makeSnowflake() {
+            const snowflake = document.createElement("div");
+            const delay = Math.random() * 10;
+            const initialOpacity = Math.random();
+            const duration = Math.random() * 20 + MIN_DURATION;
+    
+            snowflake.classList.add("snowflake");
+            snowflake.style.left = `${Math.random() * window.screen.width}px`;
+            snowflake.style.animationDelay = `${delay}s`;
+            snowflake.style.opacity = initialOpacity;
+            snowflake.style.animation = `fall ${duration}s linear`;
+    
+            body.appendChild(snowflake);
+    
+            setTimeout(() => {
+                body.removeChild(snowflake);
+                makeSnowflake();
+            }, (duration + delay) * 1000);
+            }
+
+            for (let index = 0; index < 50; index++) {
+            setTimeout(makeSnowflake, 500 * index);
+            }
+        </script>
     <main>
         <div class="gallery-container">
             <aside class="gallery-sidebar">
