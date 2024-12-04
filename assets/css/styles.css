@@ -188,6 +188,7 @@ h1 {
     display: inline-block;
     position: relative;
     white-space: nowrap;
+    color: rgb(234, 234, 234);
 }
 
 .typewriter-text .cursor {
